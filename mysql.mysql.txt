@@ -1,0 +1,42 @@
+CREATE TABLE Hotel (
+    HotelID INT PRIMARY KEY,
+    HotelName VARCHAR(255),
+    HotelCity VARCHAR(255),
+    Price DECIMAL(10, 2),
+    Rating FLOAT
+);
+
+CREATE TABLE Guest (
+    GuestID INT PRIMARY KEY,
+    GuestName VARCHAR(255),
+    GuestResidingCity VARCHAR(255)
+);
+
+CREATE TABLE Room (
+    RoomNumber INT PRIMARY KEY,
+    RoomType VARCHAR(50),
+    Price DECIMAL(10, 2)
+);
+
+CREATE TABLE Reservation (
+    ReservationID INT PRIMARY KEY,
+    GuestID INT,
+    RoomNumber INT,
+    HotelID INT,
+    FOREIGN KEY (GuestID) REFERENCES Guest(GuestID),
+    FOREIGN KEY (RoomNumber) REFERENCES Room(RoomNumber),
+    FOREIGN KEY (HotelID) REFERENCES Hotel(HotelID)
+);
+
+CREATE TABLE Service (
+    ServiceID INT PRIMARY KEY,
+    ServiceType VARCHAR(50)
+);
+
+CREATE TABLE RoomService (
+    RoomNumber INT,
+    ServiceID INT,
+    FOREIGN KEY (RoomNumber) REFERENCES Room(RoomNumber),
+    FOREIGN KEY (ServiceID) REFERENCES Service(ServiceID),
+    PRIMARY KEY (RoomNumber, ServiceID)
+);
